@@ -1,1 +1,277 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cabutan Bertuah</title><link rel="stylesheet" href="style.css"></head><body><div class="wrap"><h1>🎁 CABUTAN BERTUAH</h1><p>Sewa Kereta <b>3 Hari Ke Atas</b> Layak 1 Cabutan</p><input id="nama" placeholder="Nama"><input id="phone" placeholder="No Telefon"><button onclick="mula()">MULA CABUTAN</button><div id="grid" class="grid"></div><div id="msg"></div></div><script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Draw</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#111;
+background-image:linear-gradient(135deg,#000,#3a2b00,#000);
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.logo{
+width:120px;
+margin:10px auto;
+display:block;
+}
+
+h1{
+color:#FFD700;
+margin-bottom:15px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:none;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+padding:12px 25px;
+background:#FFD700;
+border:none;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+margin:15px 0;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+margin-top:20px;
+}
+
+.box{
+background:#222;
+border:2px solid gold;
+height:70px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+cursor:pointer;
+border-radius:10px;
+transition:.3s;
+}
+
+.box:hover{
+background:gold;
+color:#000;
+}
+
+.box.open{
+background:#444;
+pointer-events:none;
+}
+
+#popup{
+position:fixed;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+display:none;
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:#111;
+border:3px solid gold;
+padding:25px;
+border-radius:15px;
+width:90%;
+max-width:350px;
+}
+
+.popup-box h2{
+color:gold;
+margin-bottom:15px;
+}
+
+#result{
+font-size:22px;
+font-weight:bold;
+margin-bottom:20px;
+color:#FFD700;
+}
+
+.note{
+margin-top:15px;
+font-size:16px;
+color:white;
+}
+
+.closeBtn{
+margin-top:15px;
+width:100%;
+}
+
+.hidden{
+display:none;
+}
+</style>
+</head>
+<script>
+
+let sudahMain = false;
+
+const hadiah = [
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Harap Maaf, Jumpa Lagi",
+    "Discount 5%",
+    "Discount 5%",
+    "Discount 10%",
+    "Cash RM10",
+    "Cash RM20",
+    "Cash RM30",
+    "Free Minyak 10L",
+    "50% T&S (Tambah 1 Hari, Hari Ke-4 Bayar 50%)",
+    "60% T&S (Tambah 1 Hari, Hari Ke-4 Bayar 60%)",
+    "🏆 HADIAH UTAMA<br>FREE 1 HARI<br><small>(Sewa 5 Hari Ke Atas Sahaja)</small>"
+];
+
+function mula() {
+    let nama = document.getElementById("nama").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+
+    if (nama === "" || phone === "") {
+        alert("Sila isi Nama dan No Telefon");
+        return;
+    }
+
+    document.getElementById("game").classList.remove("hidden");
+}
+
+document.querySelectorAll(".box").forEach(box => {
+
+    box.addEventListener("click", function () {
+
+        if (sudahMain) return;
+
+        sudahMain = true;
+
+        this.classList.add("open");
+        this.innerHTML = "⏳";
+
+        setTimeout(() => {
+
+            const menang = hadiah[Math.floor(Math.random() * hadiah.length)];
+
+            this.innerHTML = "🎉";
+
+            document.getElementById("result").innerHTML = menang;
+
+            document.getElementById("popup").style.display = "flex";
+
+            document.querySelectorAll(".box").forEach(b => {
+                b.style.pointerEvents = "none";
+            });
+
+        }, 1000);
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
+<body>
+
+<div class="container">
+
+<img src="IMG_6886.png" class="logo">
+
+<h1>🎁 LUCKY DRAW 🎁</h1>
+
+<input type="text" id="nama" placeholder="Nama">
+
+<input type="tel" id="phone" placeholder="No Telefon">
+
+<button onclick="mula()">MULA CABUTAN</button>
+
+<div id="game" class="grid hidden">
+
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+<div class="box">🎁</div>
+
+</div>
+
+</div>
+
+<div id="popup">
+
+<div class="popup-box">
+
+<h2>Hadiah Anda</h2>
+
+<div id="result"></div>
+
+<p class="note">
+📸 Sila Screen Shot dan Send Pada Admin Anda
+</p>
+
+<button class="closeBtn" onclick="location.reload()">Tutup</button>
+
+</div>
+
+</div>
